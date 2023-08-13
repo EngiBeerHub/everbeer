@@ -1,0 +1,16 @@
+.random-beer-card {
+  display: block;
+  width: 40%;
+  // TODO: Make responsive
+  margin-left: auto;
+  margin-right: auto;
+}
+
+mat-card-content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 300px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

@@ -1,9 +1,13 @@
 .random-beer-card {
   display: block;
-  width: 40%;
+  width: 60%;
   // TODO: Make responsive
   margin-left: auto;
   margin-right: auto;
+}
+
+mat-spinner {
+  margin: auto;
 }
 
 mat-card-content img {

@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { BeerCardComponent } from './components/shared/beer-card/beer-card.component';
+import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 
 @NgModule({
   declarations: [AppComponent, TopComponent, BeerCardComponent],

@@ -7,9 +7,9 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent implements OnInit {
-  beer: Beer | undefined;
-  isLoading: boolean | undefined;
-  imageUrl: string | undefined;
+  beer?: Beer;
+  isLoading?: boolean;
+  imageUrl?: string;
   readonly altImageUrl = 'https://images.punkapi.com/v2/keg.png';
 
   constructor(private beerService: BeerService) {}

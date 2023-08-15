@@ -14,7 +14,12 @@ import { BeerCardComponent } from './components/presentationals/beer-card/beer-c
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
 
 @NgModule({
-  declarations: [AppComponent, TopComponent, BeerCardComponent, RandomBeerComponent],
+  declarations: [
+    AppComponent,
+    TopComponent,
+    BeerCardComponent,
+    RandomBeerComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

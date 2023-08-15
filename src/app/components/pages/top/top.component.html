@@ -3,14 +3,4 @@
   <span>Ever Beer</span>
 </mat-toolbar>
 <h1>Today's Beer</h1>
-<div class="random-beer-card">
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-
-  <app-beer-card
-    *ngIf="!isLoading"
-    [beer]="beer"
-    [imageUrl]="imageUrl"
-  ></app-beer-card>
-</div>
-<h1>Raw Data</h1>
-<p>{{ toJson(beer) }}</p>
+<app-random-beer></app-random-beer>

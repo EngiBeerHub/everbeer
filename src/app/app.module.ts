@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TopComponent } from './components/pages/top/top.component';
+import { TopPageComponent } from './components/pages/top/top-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -16,7 +16,7 @@ import { RandomBeerComponent } from './components/containers/random-beer/random-
 @NgModule({
   declarations: [
     AppComponent,
-    TopComponent,
+    TopPageComponent,
     BeerCardComponent,
     RandomBeerComponent,
   ],

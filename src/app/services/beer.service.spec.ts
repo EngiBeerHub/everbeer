@@ -7,6 +7,7 @@ import {
 import { BeerService } from './beer.service';
 import { Beer } from '../models/beer';
 import { mockRandomBeer } from '../testing/mock-beer';
+import { catchError, lastValueFrom, of } from 'rxjs';
 
 describe('BeerService', () => {
   let httpTestingController: HttpTestingController;
@@ -25,9 +26,9 @@ describe('BeerService', () => {
     httpTestingController.verify();
   });
 
-  // it('should be created', () => {
-  //   expect(service).toBeTruthy();
-  // });
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
   it('should get random beer from server', () => {
     const expected: Beer[] = mockRandomBeer;
@@ -36,13 +37,28 @@ describe('BeerService', () => {
     service.getRandomBeer().subscribe((actual) => {
       expect(actual).toEqual(expected[0]);
     });
-
+    // Create test request
     const req = httpTestingController.expectOne(
       'https://api.punkapi.com/v2/beers/random',
     );
-
+    // Assert method
     expect(req.request.method).toEqual('GET');
 
     req.flush(expected);
+  });
+
+  it('should throw an error when no beer found', async () => {
+    service.getRandomBeer().subscribe({
+      error: (err) =>
+        expect(err.message).toEqual('Error: random beer array length is 0.'),
+    });
+    // Create test request
+    const req = httpTestingController.expectOne(
+      'https://api.punkapi.com/v2/beers/random',
+    );
+    // Assert method
+    expect(req.request.method).toEqual('GET');
+
+    req.flush([]);
   });
 });

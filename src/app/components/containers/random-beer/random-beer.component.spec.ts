@@ -23,4 +23,8 @@ describe('RandomBeerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should start loading', () => {
+    expect(component.isLoading).toEqual(true);
+  });
 });

@@ -7,7 +7,6 @@ import {
 import { BeerService } from './beer.service';
 import { Beer } from '../models/beer';
 import { mockRandomBeer } from '../testing/mock-beer';
-import { catchError, lastValueFrom, of } from 'rxjs';
 
 describe('BeerService', () => {
   let httpTestingController: HttpTestingController;

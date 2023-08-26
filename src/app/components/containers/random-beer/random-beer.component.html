@@ -1,0 +1,7 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<app-beer-card
+  *ngIf="!isLoading"
+  [beer]="beer"
+  [imageUrl]="imageUrl"
+></app-beer-card>

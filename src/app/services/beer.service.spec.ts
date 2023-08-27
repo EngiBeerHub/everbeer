@@ -6,7 +6,7 @@ import {
 
 import { BeerService } from './beer.service';
 import { Beer } from '../models/beer';
-import { mockRandomBeer } from '../testing/mock-beer';
+import { mockRandomBeers } from '../testing/mock-beer';
 
 describe('BeerService', () => {
   let httpTestingController: HttpTestingController;
@@ -30,7 +30,7 @@ describe('BeerService', () => {
   });
 
   it('should get random beer from server', () => {
-    const expected: Beer[] = mockRandomBeer;
+    const expected: Beer[] = mockRandomBeers;
 
     // Assert response
     service.getRandomBeer().subscribe((actual) => {

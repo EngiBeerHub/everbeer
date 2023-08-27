@@ -1,4 +1,6 @@
-export const mockRandomBeer = [
+import { Beer } from '../models/beer';
+
+export const mockRandomBeers: Beer[] = [
   {
     id: 37,
     name: 'Zephyr',

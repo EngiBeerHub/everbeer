@@ -1,9 +1,3 @@
-<app-beer-card
-  *ngIf="beer; else spinner"
-  [beer]="beer"
-  [imageUrl]="imageUrl"
-></app-beer-card>
-
-<ng-template #spinner>
-  <mat-spinner></mat-spinner>
-</ng-template>
+<app-beer-card *ngIf="beer" [beer]="beer" [imageUrl]="imageUrl"></app-beer-card>
+<p *ngIf="error">{{ error }}</p>
+<mat-spinner *ngIf="isLoading"></mat-spinner>

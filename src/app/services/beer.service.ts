@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, map, tap, timeout } from 'rxjs';
 import { Beer } from '../models/beer';
 
 @Injectable({
@@ -26,10 +26,29 @@ export class BeerService {
         return beers[0];
       }),
       tap((beer) => console.log(`random beer fetched: ${beer.name}`)),
-      catchError((error) => {
-        console.error('Error while fetching random beer:', error);
-        throw new Error(error);
-      }),
-    );
+      catchError(this.handleError('getRandomBeer')),
+    ) as Observable<Beer>;
+  }
+
+  private handleError<T>(operation = 'operation') {
+    return (error: HttpErrorResponse): Observable<T> => {
+      console.error(error);
+      const message =
+        error.error instanceof ErrorEvent
+          ? error.error.message
+          : `backend returned code ${error.status}, body was ${error.error}`;
+      throw new Error(`${operation} failed: ${message}`);
+    };
+    // // client or network error
+    // if (error.status === 0) {
+    //   console.error('An error occurred: ', error.message);
+    //   // server error
+    // } else {
+    //   console.error(
+    //     `Backend returned code ${error.status}, body was: `,
+    //     error.message,
+    //   );
+    // }
+    // throw new Error('Error while fetching random beer. Please retry later.');
   }
 }

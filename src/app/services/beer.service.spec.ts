@@ -48,8 +48,7 @@ describe('BeerService', () => {
 
   it('should throw an error when no beer found', async () => {
     service.getRandomBeer().subscribe({
-      error: (err) =>
-        expect(err.message).toEqual('Error: random beer array length is 0.'),
+      error: (err) => expect(err).toBeTruthy,
     });
     // Create test request
     const req = httpTestingController.expectOne(

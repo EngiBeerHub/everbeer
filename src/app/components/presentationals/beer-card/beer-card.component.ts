@@ -10,4 +10,5 @@ import { Beer } from 'src/app/models/beer';
 export class BeerCardComponent {
   @Input() beer?: Beer;
   @Input() imageUrl?: string;
+  @Input() error?: string;
 }

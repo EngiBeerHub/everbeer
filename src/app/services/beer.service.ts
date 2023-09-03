@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, tap, timeout } from 'rxjs';
+import { Observable, catchError, map, retry, tap, timeout } from 'rxjs';
 import { Beer } from '../models/beer';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,12 @@ export class BeerService {
 
   /**
    * GET a random beer from API
-   * @returns Observable<Beer>
+   * @returns a random beer
    */
   getRandomBeer(): Observable<Beer> {
     return this.httpClient.get<Beer[]>(this.randomBeerUrl).pipe(
+      timeout(5000),
+      retry(2),
       // need to convert array to single object.
       map((beers) => {
         if (beers.length === 0) {
@@ -26,29 +29,30 @@ export class BeerService {
         return beers[0];
       }),
       tap((beer) => console.log(`random beer fetched: ${beer.name}`)),
-      catchError(this.handleError('getRandomBeer')),
-    ) as Observable<Beer>;
+      catchError(this.handleError),
+    );
   }
 
-  private handleError<T>(operation = 'operation') {
-    return (error: HttpErrorResponse): Observable<T> => {
-      console.error(error);
-      const message =
-        error.error instanceof ErrorEvent
-          ? error.error.message
-          : `backend returned code ${error.status}, body was ${error.error}`;
-      throw new Error(`${operation} failed: ${message}`);
-    };
-    // // client or network error
-    // if (error.status === 0) {
-    //   console.error('An error occurred: ', error.message);
-    //   // server error
-    // } else {
-    //   console.error(
-    //     `Backend returned code ${error.status}, body was: `,
-    //     error.message,
-    //   );
-    // }
-    // throw new Error('Error while fetching random beer. Please retry later.');
+  /**
+   * Handle error both from client and backend.
+   * @param error
+   * @returns an error Observable
+   */
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('A client-side or network error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error,
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Error('An error occurred. Please try again later.'),
+    );
   }
 }

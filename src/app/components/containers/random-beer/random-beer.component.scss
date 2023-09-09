@@ -1,11 +1,8 @@
 :host {
-  display: block;
-  width: 60%;
-  // TODO: Make responsive
-  margin-left: auto;
-  margin-right: auto;
-}
-
-mat-spinner {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  margin-left: 24px;
+  margin-right: 24px;
 }

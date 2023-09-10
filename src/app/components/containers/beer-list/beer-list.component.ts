@@ -13,8 +13,8 @@ export class BeerListComponent implements OnInit {
   isLoading?: boolean;
   // vars for grid list
   gridCols = 3;
-  gridGutterSize = '16px'; // plus 8px margin of each cards
-  gridRowHeight = 570;
+  gridGutterSize = '8px'; // plus 8px margin of each cards
+  gridRowHeight = 416;
 
   constructor(
     private beerService: BeerService,

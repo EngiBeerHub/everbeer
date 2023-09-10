@@ -6,6 +6,12 @@ mat-card {
   height: 400px;
 }
 
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 mat-card-content {
   img {
     display: block;
@@ -15,7 +21,7 @@ mat-card-content {
     margin-top: 8px;
     margin-bottom: 8px;
   }
-  p {
+  span {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

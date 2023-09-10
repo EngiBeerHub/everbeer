@@ -14,7 +14,7 @@ export class BeerService {
   constructor(private httpClient: HttpClient) {}
 
   /**
-   * GET a random beer from API
+   * GET a random beer via API
    * @returns a random beer
    */
   getRandomBeer(): Observable<Beer> {
@@ -29,6 +29,19 @@ export class BeerService {
         return beers[0];
       }),
       tap((beer) => console.log(`random beer fetched: ${beer.name}`)),
+      catchError(this.handleError),
+    );
+  }
+
+  /**
+   * GET all beers via API
+   * @returns all beers
+   */
+  getAllBeers(): Observable<Beer[]> {
+    return this.httpClient.get<Beer[]>(this.beersUrl).pipe(
+      timeout(5000),
+      retry(2),
+      tap((beers) => console.log(`all ${beers.length} beers fetched`)),
       catchError(this.handleError),
     );
   }

@@ -10,6 +10,7 @@ import { BeerService } from 'src/app/services/beer.service';
 })
 export class BeerListComponent implements OnInit {
   beers?: Beer[];
+  isLoading?: boolean;
   // vars for grid list
   gridCols = 3;
   gridGutterSize = '16px'; // plus 8px margin of each cards
@@ -21,10 +22,14 @@ export class BeerListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // start loading to show spinner
+    this.isLoading = true;
+
     // Fetch all beers from API
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
         this.beers = fetchedBeers;
+        this.isLoading = false;
       },
       // TODO: error:
       complete: () => console.log('getAllBeers completed.'),

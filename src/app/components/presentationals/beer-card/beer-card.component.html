@@ -3,7 +3,7 @@
 </mat-card>
 
 <ng-template #beerCard>
-  <mat-card *ngIf="!error">
+  <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="avatar">
         <mat-icon
@@ -11,12 +11,23 @@
           >water_drop</mat-icon
         >
       </div>
+
       <mat-card-title>{{ beer?.name }}</mat-card-title>
+
       <mat-card-subtitle>{{ beer?.tagline }}</mat-card-subtitle>
     </mat-card-header>
+
     <mat-card-content>
       <img [src]="imageUrl" [alt]="beer?.name" />
-      <span>{{ beer?.description }}</span>
+
+      <div class="ibu-container">
+        <div class="ibu-text">
+          <span>IBU: {{ beer?.ibu ? beer?.ibu : 'N/A' }}</span>
+        </div>
+        <mat-progress-bar [value]="beer?.ibu"></mat-progress-bar>
+      </div>
+
+      <span class="description">{{ beer?.description }}</span>
     </mat-card-content>
   </mat-card>
 </ng-template>

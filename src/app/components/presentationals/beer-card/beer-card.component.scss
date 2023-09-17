@@ -3,7 +3,7 @@
 }
 
 mat-card {
-  height: 400px;
+  height: 456px;
 }
 
 .avatar {
@@ -21,7 +21,17 @@ mat-card-content {
     margin-top: 8px;
     margin-bottom: 8px;
   }
-  span {
+
+  .ibu-container {
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    .ibu-text {
+      text-align: center;
+    }
+  }
+
+  .description {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

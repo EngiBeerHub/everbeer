@@ -1,0 +1,20 @@
+<!-- spinner -->
+<div class="spinner-container" *ngIf="isLoading; else list">
+  <mat-spinner></mat-spinner>
+</div>
+<!-- all beer list -->
+<ng-template #list>
+  <mat-grid-list
+    [cols]="gridCols"
+    [gutterSize]="gridGutterSize"
+    [rowHeight]="gridRowHeight"
+  >
+    <mat-grid-tile *ngFor="let beer of beers">
+      <app-beer-card
+        class="beer-card"
+        [beer]="beer"
+        [imageUrl]="beer.image_url!"
+      ></app-beer-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>

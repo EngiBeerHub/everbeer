@@ -1,8 +1,30 @@
-mat-card-content img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 300px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+:host {
+  width: 100%;
+}
+
+mat-card {
+  height: 400px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card-content {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 240px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  span {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }

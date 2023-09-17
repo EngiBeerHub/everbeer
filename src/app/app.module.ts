@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
+import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RandomBeerComponent } from './components/containers/random-beer/random-
     TopPageComponent,
     BeerCardComponent,
     RandomBeerComponent,
+    BeerListComponent,
   ],
   imports: [
     BrowserModule,

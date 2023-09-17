@@ -1,20 +1,8 @@
 <mat-toolbar color="primary">
-  <mat-icon>local_drink</mat-icon>
+  <mat-icon>sports_bar</mat-icon>
   <span>Ever Beer</span>
 </mat-toolbar>
 <h1>Today's Beer</h1>
 <app-random-beer></app-random-beer>
-<mat-grid-list [cols]="cols" [rowHeight]="rowHeight">
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-  <mat-grid-tile><app-random-beer></app-random-beer></mat-grid-tile>
-</mat-grid-list>
+<h1>All Beers</h1>
+<app-beer-list></app-beer-list>

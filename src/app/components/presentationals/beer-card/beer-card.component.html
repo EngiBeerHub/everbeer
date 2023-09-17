@@ -5,12 +5,18 @@
 <ng-template #beerCard>
   <mat-card *ngIf="!error">
     <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        <mat-icon
+          [style.color]="beer?.srm ? getSrmColor(beer!.srm) : defaultColor"
+          >water_drop</mat-icon
+        >
+      </div>
       <mat-card-title>{{ beer?.name }}</mat-card-title>
       <mat-card-subtitle>{{ beer?.tagline }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <img [src]="imageUrl" [alt]="beer?.name" />
-      <p>{{ beer?.description }}</p>
+      <span>{{ beer?.description }}</span>
     </mat-card-content>
   </mat-card>
 </ng-template>

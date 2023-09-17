@@ -1,4 +1,4 @@
-<mat-spinner class="spinner" *ngIf="isLoading; else card"></mat-spinner>
+<mat-spinner *ngIf="isLoading; else card"></mat-spinner>
 <ng-template #card>
   <app-beer-card
     [beer]="beer"

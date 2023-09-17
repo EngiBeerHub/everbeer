@@ -1,3 +1,13 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .main-content {
+    max-width: 1400px;
+  }
+}
+
 app-random-beer {
   margin: 0 8px;
 }

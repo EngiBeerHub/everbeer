@@ -52,7 +52,6 @@ export class BeerListComponent implements OnInit {
       ])
       .subscribe((result) => {
         const breakpoints = result.breakpoints;
-        // alert(JSON.stringify(breakpoints));
         // TODO: configure more detail
         if (breakpoints[Breakpoints.WebLandscape]) {
           this.gridCols = 3;

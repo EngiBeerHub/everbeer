@@ -3,6 +3,13 @@
   justify-content: center;
   align-items: center;
 
+  .spinner-container {
+    height: 454px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   app-beer-card {
     margin-top: 8px;
   }

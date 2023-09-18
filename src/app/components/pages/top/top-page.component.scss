@@ -1,15 +1,14 @@
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.title-toolbar {
+  margin-left: 8px;
+}
 
-  .main-content {
-    max-width: 1400px;
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
 
-    h1 {
-      font-size: 32px;
-      margin-top: 24px;
-    }
+  h1 {
+    font-size: 32px;
+    margin-top: 24px;
   }
 }
 

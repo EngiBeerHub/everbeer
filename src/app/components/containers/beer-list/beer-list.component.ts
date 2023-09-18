@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { MatChipSelectionChange } from '@angular/material/chips';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -9,7 +10,8 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
-  beers?: Beer[];
+  allBeers?: Beer[]; // All beers
+  displayedBeers?: Beer[]; // Displayed beers filtered
   isLoading?: boolean;
 
   // vars for grid list
@@ -34,7 +36,8 @@ export class BeerListComponent implements OnInit {
     // Fetch all beers from API
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
-        this.beers = fetchedBeers;
+        this.allBeers = fetchedBeers;
+        this.displayedBeers = [...fetchedBeers];
         this.isLoading = false;
       },
       // TODO: error:
@@ -65,5 +68,11 @@ export class BeerListComponent implements OnInit {
           this.gridCols = 1;
         }
       });
+  }
+
+  onChipSelectionChange(event: MatChipSelectionChange) {
+    console.log(event.selected);
+    console.log(event.source.id);
+    console.log(event.source.value);
   }
 }

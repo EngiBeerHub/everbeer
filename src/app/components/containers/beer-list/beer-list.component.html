@@ -1,3 +1,27 @@
+<!-- chip -->
+<mat-chip-listbox multiple="true">
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >High Alcohol</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >Bitter</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >Aroma</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >Pale Ale</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >IPA</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >Black</mat-chip-option
+  >
+  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
+    >Imperial</mat-chip-option
+  >
+</mat-chip-listbox>
 <!-- spinner -->
 <div class="spinner-container" *ngIf="isLoading; else list">
   <mat-spinner></mat-spinner>
@@ -9,7 +33,7 @@
     [gutterSize]="gridGutterSize"
     [rowHeight]="gridRowHeight"
   >
-    <mat-grid-tile *ngFor="let beer of beers">
+    <mat-grid-tile *ngFor="let beer of displayedBeers">
       <app-beer-card
         class="beer-card"
         [beer]="beer"

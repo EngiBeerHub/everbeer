@@ -1,11 +1,16 @@
 :host {
-  display: block;
-  width: 60%;
-  // TODO: Make responsive
-  margin-left: auto;
-  margin-right: auto;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-mat-spinner {
-  margin: auto;
+  .spinner-container {
+    height: 464px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  app-beer-card {
+    margin-top: 8px;
+  }
 }

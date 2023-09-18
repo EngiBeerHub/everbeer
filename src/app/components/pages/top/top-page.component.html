@@ -1,6 +1,21 @@
-<mat-toolbar color="primary">
-  <mat-icon>local_drink</mat-icon>
-  <span>Ever Beer</span>
-</mat-toolbar>
-<h1>Today's Beer</h1>
-<app-random-beer></app-random-beer>
+<header>
+  <mat-toolbar color="primary" class="mat-elevation-z5">
+    <mat-icon>sports_bar</mat-icon>
+
+    <div class="title-toolbar">
+      <span>Ever Beer</span>
+    </div>
+  </mat-toolbar>
+</header>
+
+<main>
+  <div class="main-content">
+    <h1>Today's Beer</h1>
+
+    <app-random-beer></app-random-beer>
+
+    <h1>All Beers</h1>
+
+    <app-beer-list></app-beer-list>
+  </div>
+</main>

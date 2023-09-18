@@ -1,0 +1,32 @@
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+
+  .title-toolbar {
+    margin-left: 8px;
+  }
+}
+
+main {
+  // make only main content scrollable
+  margin-top: 64px;
+  height: calc(100% - 64px);
+  overflow-y: scroll;
+
+  .main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 32px;
+      margin-top: 24px;
+      margin-left: 8px;
+    }
+  }
+
+  app-random-beer {
+    margin: 0 8px;
+  }
+}

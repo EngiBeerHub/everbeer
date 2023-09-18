@@ -1,10 +1,33 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ beer?.name }}</mat-card-title>
-    <mat-card-subtitle>{{ beer?.tagline }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <img [src]="imageUrl" [alt]="beer?.name" />
-    <p>{{ beer?.description }}</p>
-  </mat-card-content>
+<mat-card *ngIf="error; else beerCard">
+  <mat-card-title>{{ error }}</mat-card-title>
 </mat-card>
+
+<ng-template #beerCard>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="avatar">
+        <mat-icon
+          [style.color]="beer?.srm ? getSrmColor(beer!.srm) : defaultColor"
+          >water_drop</mat-icon
+        >
+      </div>
+
+      <mat-card-title>{{ beer?.name }}</mat-card-title>
+
+      <mat-card-subtitle>{{ beer?.tagline }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <img [src]="imageUrl" [alt]="beer?.name" />
+
+      <div class="ibu-container">
+        <div class="ibu-text">
+          <span>IBU: {{ beer?.ibu ? beer?.ibu : 'N/A' }}</span>
+        </div>
+        <mat-progress-bar [value]="beer?.ibu"></mat-progress-bar>
+      </div>
+
+      <span class="description">{{ beer?.description }}</span>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -1,7 +1,11 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="spinner-container" *ngIf="isLoading; else card">
+  <mat-spinner></mat-spinner>
+</div>
 
-<app-beer-card
-  *ngIf="!isLoading"
-  [beer]="beer"
-  [imageUrl]="imageUrl"
-></app-beer-card>
+<ng-template #card>
+  <app-beer-card
+    [beer]="beer"
+    [imageUrl]="imageUrl"
+    [error]="error"
+  ></app-beer-card>
+</ng-template>

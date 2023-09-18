@@ -10,8 +10,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
+import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { RandomBeerComponent } from './components/containers/random-beer/random-
     TopPageComponent,
     BeerCardComponent,
     RandomBeerComponent,
+    BeerListComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,8 @@ import { RandomBeerComponent } from './components/containers/random-beer/random-
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatIconModule,
+    MatGridListModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

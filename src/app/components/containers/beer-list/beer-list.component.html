@@ -1,25 +1,9 @@
 <!-- chip -->
 <mat-chip-listbox multiple="true">
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >High Alcohol</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >Bitter</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >Aroma</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >Pale Ale</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >IPA</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >Black</mat-chip-option
-  >
-  <mat-chip-option (selectionChange)="onChipSelectionChange($event)"
-    >Imperial</mat-chip-option
+  <mat-chip-option
+    *ngFor="let option of filterOptions"
+    (selectionChange)="onChipSelectionChange($event)"
+    >{{ option }}</mat-chip-option
   >
 </mat-chip-listbox>
 <!-- spinner -->

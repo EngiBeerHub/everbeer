@@ -12,7 +12,18 @@ import { BeerService } from 'src/app/services/beer.service';
 export class BeerListComponent implements OnInit {
   allBeers?: Beer[]; // All beers
   displayedBeers?: Beer[]; // Displayed beers filtered
-  isLoading?: boolean;
+  isLoading?: boolean; // show spinner when true
+
+  // Filter Options on chip
+  filterOptions = [
+    'High Alcohol',
+    'Bitter',
+    'Aroma',
+    'Pale Ale',
+    'IPA',
+    'Black',
+    'Imperial',
+  ];
 
   // vars for grid list
   initialGridCols = 3;
@@ -74,5 +85,25 @@ export class BeerListComponent implements OnInit {
     console.log(event.selected);
     console.log(event.source.id);
     console.log(event.source.value);
+    if (event.selected) {
+      // 選択された場合は、選択肢に対応するフィルタ関数をdisplayedBeerに適用する
+      switch (event.source.value) {
+        case this.filterOptions[0]: // 'High Alcohol'
+          this.displayedBeers = this.filterHighAlcohol(this.displayedBeers!);
+          break;
+        default:
+          break;
+      }
+    } else {
+      // TODO: 選択が外された場合は、改めてallBeersに対して他に選択されているフィルタを全てかけ直す
+    }
   }
+
+  private filterHighAlcohol(beers: Beer[]): Beer[] {
+    return beers.filter((beer) => {
+      return beer.abv > 8;
+    });
+  }
+
+  // TODO: more filter functions
 }

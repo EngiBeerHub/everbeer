@@ -19,16 +19,26 @@ export class BeerListComponent implements OnInit {
   displayedBeers?: Beer[]; // Displayed beers filtered
   isLoading?: boolean; // show spinner when true
 
-  // Filter Options on chip
-  filterOptions = [
-    'High Alcohol',
-    'Bitter',
-    'Aroma',
-    'Pale Ale',
-    'IPA',
-    'Black',
-    'Imperial',
-  ];
+  // Filter options and functions
+  private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
+    'High Alcohol': (beer) => beer.abv > 8,
+    Bitter: (beer) => beer.ibu > 50,
+    Aroma: (beer) =>
+      beer.ingredients.hops.some((hop) => hop.attribute === 'aroma'),
+    'Pale Ale': (beer) => beer.description.toUpperCase().includes('PALE ALE'),
+    IPA: (beer) =>
+      beer.tagline.toUpperCase().includes('IPA') ||
+      beer.description.toUpperCase().includes('IPA'),
+    Black: (beer) =>
+      beer.tagline.toUpperCase().includes('BLACK') ||
+      beer.description.toUpperCase().includes('BLACK'),
+    Imperial: (beer) =>
+      beer.tagline.toUpperCase().includes('IMEPRIAL') ||
+      beer.description.toUpperCase().includes('IMPERIAL'),
+  };
+
+  // Filter Options value on chip
+  filterOptions = Object.keys(this.FILTER_MAP);
 
   // vars for grid list
   initialGridCols = 3;
@@ -108,12 +118,6 @@ export class BeerListComponent implements OnInit {
     this.filterBeers(selectedChips);
   }
 
-  private filterHighAlcohol(beers: Beer[]): Beer[] {
-    return beers.filter((beer) => {
-      return beer.abv > 8;
-    });
-  }
-
   /**
    * Filter beers by selected chips
    * @param selectedChips Array of selected chips
@@ -124,50 +128,9 @@ export class BeerListComponent implements OnInit {
 
     // Filter for all selected chips
     selectedChips.forEach((chip) => {
-      switch (chip.value) {
-        case this.filterOptions[0]: // High Alcohol
-          this.displayedBeers = this.displayedBeers?.filter(
-            (beer) => beer.abv > 8,
-          );
-          break;
-        case this.filterOptions[1]: // Bitter
-          this.displayedBeers = this.displayedBeers?.filter(
-            (beer) => beer.ibu > 50,
-          );
-          break;
-        case this.filterOptions[2]: // Aroma
-          this.displayedBeers = this.displayedBeers?.filter((beer) =>
-            beer.ingredients.hops.some((hop) => hop.attribute === 'aroma'),
-          );
-          break;
-        case this.filterOptions[3]: // Pale Ale
-          this.displayedBeers = this.displayedBeers?.filter((beer) =>
-            beer.description.toUpperCase().includes('PALE ALE'),
-          );
-          break;
-        case this.filterOptions[4]: // IPA
-          this.displayedBeers = this.displayedBeers?.filter(
-            (beer) =>
-              beer.tagline.toUpperCase().includes('IPA') ||
-              beer.description.toUpperCase().includes('IPA'),
-          );
-          break;
-        case this.filterOptions[5]: // Black
-          this.displayedBeers = this.displayedBeers?.filter(
-            (beer) =>
-              beer.tagline.toUpperCase().includes('BLACK') ||
-              beer.description.toUpperCase().includes('BLACK'),
-          );
-          break;
-        case this.filterOptions[6]: // Imperial
-          this.displayedBeers = this.displayedBeers?.filter(
-            (beer) =>
-              beer.tagline.toUpperCase().includes('IMEPRIAL') ||
-              beer.description.toUpperCase().includes('IMPERIAL'),
-          );
-          break;
-        default:
-          break;
+      const filterFunc = this.FILTER_MAP[chip.value];
+      if (filterFunc) {
+        this.displayedBeers = this.allBeers?.filter(filterFunc);
       }
     });
   }

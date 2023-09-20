@@ -1,3 +1,11 @@
+<!-- chip -->
+<mat-chip-listbox #chipList multiple>
+  <mat-chip-option
+    *ngFor="let option of filterOptions"
+    (selectionChange)="onChipSelectionChange($event)"
+    >{{ option }}</mat-chip-option
+  >
+</mat-chip-listbox>
 <!-- spinner -->
 <div class="spinner-container" *ngIf="isLoading; else list">
   <mat-spinner></mat-spinner>
@@ -9,7 +17,7 @@
     [gutterSize]="gridGutterSize"
     [rowHeight]="gridRowHeight"
   >
-    <mat-grid-tile *ngFor="let beer of beers">
+    <mat-grid-tile *ngFor="let beer of displayedBeers">
       <app-beer-card
         class="beer-card"
         [beer]="beer"

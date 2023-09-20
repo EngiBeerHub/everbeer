@@ -8,8 +8,10 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class BeerService {
-  readonly beersUrl = 'https://api.punkapi.com/v2/beers/';
-  readonly randomBeerUrl = `${this.beersUrl}random`;
+  private readonly beersUrl = 'https://api.punkapi.com/v2/beers';
+  private readonly randomBeerUrl = `${this.beersUrl}/random`;
+  // TODO: pagenation
+  private readonly allBeersUrl = `${this.beersUrl}?per_page=80`;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -38,7 +40,7 @@ export class BeerService {
    * @returns all beers
    */
   getAllBeers(): Observable<Beer[]> {
-    return this.httpClient.get<Beer[]>(this.beersUrl).pipe(
+    return this.httpClient.get<Beer[]>(this.allBeersUrl).pipe(
       timeout(5000),
       retry(2),
       tap((beers) => console.log(`all ${beers.length} beers fetched`)),

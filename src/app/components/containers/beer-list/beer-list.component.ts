@@ -1,5 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  MatChipListbox,
+  MatChipOption,
+  MatChipSelectionChange,
+} from '@angular/material/chips';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -9,8 +14,31 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
-  beers?: Beer[];
-  isLoading?: boolean;
+  @ViewChild('chipList') chipList!: MatChipListbox;
+  allBeers?: Beer[]; // All beers
+  displayedBeers?: Beer[]; // Displayed beers filtered
+  isLoading?: boolean; // show spinner when true
+
+  // Filter options and functions
+  private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
+    'High Alcohol': (beer) => beer.abv > 8,
+    Bitter: (beer) => beer.ibu > 50,
+    Aroma: (beer) =>
+      beer.ingredients.hops.some((hop) => hop.attribute === 'aroma'),
+    'Pale Ale': (beer) => beer.description.toUpperCase().includes('PALE ALE'),
+    IPA: (beer) =>
+      beer.tagline.toUpperCase().includes('IPA') ||
+      beer.description.toUpperCase().includes('IPA'),
+    Black: (beer) =>
+      beer.tagline.toUpperCase().includes('BLACK') ||
+      beer.description.toUpperCase().includes('BLACK'),
+    Imperial: (beer) =>
+      beer.tagline.toUpperCase().includes('IMEPRIAL') ||
+      beer.description.toUpperCase().includes('IMPERIAL'),
+  };
+
+  // Filter Options value on chip
+  filterOptions = Object.keys(this.FILTER_MAP);
 
   // vars for grid list
   initialGridCols = 3;
@@ -34,7 +62,8 @@ export class BeerListComponent implements OnInit {
     // Fetch all beers from API
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
-        this.beers = fetchedBeers;
+        this.allBeers = fetchedBeers;
+        this.displayedBeers = [...fetchedBeers];
         this.isLoading = false;
       },
       // TODO: error:
@@ -65,5 +94,44 @@ export class BeerListComponent implements OnInit {
           this.gridCols = 1;
         }
       });
+  }
+
+  /**
+   * Handle selection and deselection of chips
+   * @param event MatChipSelectionChange
+   */
+  onChipSelectionChange(event: MatChipSelectionChange) {
+    // Logging
+    console.log(event.selected);
+    console.log(event.source.id);
+    console.log(event.source.value);
+
+    // integrate type of selected chips
+    let selectedChips: MatChipOption[] = [];
+    if (Array.isArray(this.chipList.selected)) {
+      selectedChips = this.chipList.selected;
+    } else {
+      selectedChips.push(this.chipList.selected);
+    }
+
+    // Filter beers by selected chips
+    this.filterBeers(selectedChips);
+  }
+
+  /**
+   * Filter beers by selected chips
+   * @param selectedChips Array of selected chips
+   */
+  private filterBeers(selectedChips: MatChipOption[]) {
+    // Always start from all beers
+    this.displayedBeers = [...this.allBeers!];
+
+    // Filter for all selected chips
+    selectedChips.forEach((chip) => {
+      const filterFunc = this.FILTER_MAP[chip.value];
+      if (filterFunc) {
+        this.displayedBeers = this.allBeers?.filter(filterFunc);
+      }
+    });
   }
 }

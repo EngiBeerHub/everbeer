@@ -1,6 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-import { MatChipSelectionChange } from '@angular/material/chips';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  MatChipListbox,
+  MatChipOption,
+  MatChipSelectionChange,
+} from '@angular/material/chips';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -10,6 +14,7 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  @ViewChild('chipList') chipList!: MatChipListbox;
   allBeers?: Beer[]; // All beers
   displayedBeers?: Beer[]; // Displayed beers filtered
   isLoading?: boolean; // show spinner when true
@@ -81,22 +86,26 @@ export class BeerListComponent implements OnInit {
       });
   }
 
+  /**
+   * Handle selection and deselection of chips
+   * @param event MatChipSelectionChange
+   */
   onChipSelectionChange(event: MatChipSelectionChange) {
+    // Logging
     console.log(event.selected);
     console.log(event.source.id);
     console.log(event.source.value);
-    if (event.selected) {
-      // 選択された場合は、選択肢に対応するフィルタ関数をdisplayedBeerに適用する
-      switch (event.source.value) {
-        case this.filterOptions[0]: // 'High Alcohol'
-          this.displayedBeers = this.filterHighAlcohol(this.displayedBeers!);
-          break;
-        default:
-          break;
-      }
+
+    // integrate type of selected chips
+    let selectedChips: MatChipOption[] = [];
+    if (Array.isArray(this.chipList.selected)) {
+      selectedChips = this.chipList.selected;
     } else {
-      // TODO: 選択が外された場合は、改めてallBeersに対して他に選択されているフィルタを全てかけ直す
+      selectedChips.push(this.chipList.selected);
     }
+
+    // Filter beers by selected chips
+    this.filterBeers(selectedChips);
   }
 
   private filterHighAlcohol(beers: Beer[]): Beer[] {
@@ -105,5 +114,61 @@ export class BeerListComponent implements OnInit {
     });
   }
 
-  // TODO: more filter functions
+  /**
+   * Filter beers by selected chips
+   * @param selectedChips Array of selected chips
+   */
+  private filterBeers(selectedChips: MatChipOption[]) {
+    // Always start from all beers
+    this.displayedBeers = [...this.allBeers!];
+
+    // Filter for all selected chips
+    selectedChips.forEach((chip) => {
+      switch (chip.value) {
+        case this.filterOptions[0]: // High Alcohol
+          this.displayedBeers = this.displayedBeers?.filter(
+            (beer) => beer.abv > 8,
+          );
+          break;
+        case this.filterOptions[1]: // Bitter
+          this.displayedBeers = this.displayedBeers?.filter(
+            (beer) => beer.ibu > 50,
+          );
+          break;
+        case this.filterOptions[2]: // Aroma
+          this.displayedBeers = this.displayedBeers?.filter((beer) =>
+            beer.ingredients.hops.some((hop) => hop.attribute === 'aroma'),
+          );
+          break;
+        case this.filterOptions[3]: // Pale Ale
+          this.displayedBeers = this.displayedBeers?.filter((beer) =>
+            beer.description.toUpperCase().includes('PALE ALE'),
+          );
+          break;
+        case this.filterOptions[4]: // IPA
+          this.displayedBeers = this.displayedBeers?.filter(
+            (beer) =>
+              beer.tagline.toUpperCase().includes('IPA') ||
+              beer.description.toUpperCase().includes('IPA'),
+          );
+          break;
+        case this.filterOptions[5]: // Black
+          this.displayedBeers = this.displayedBeers?.filter(
+            (beer) =>
+              beer.tagline.toUpperCase().includes('BLACK') ||
+              beer.description.toUpperCase().includes('BLACK'),
+          );
+          break;
+        case this.filterOptions[6]: // Imperial
+          this.displayedBeers = this.displayedBeers?.filter(
+            (beer) =>
+              beer.tagline.toUpperCase().includes('IMEPRIAL') ||
+              beer.description.toUpperCase().includes('IMPERIAL'),
+          );
+          break;
+        default:
+          break;
+      }
+    });
+  }
 }

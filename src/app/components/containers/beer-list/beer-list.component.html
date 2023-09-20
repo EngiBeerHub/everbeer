@@ -1,5 +1,5 @@
 <!-- chip -->
-<mat-chip-listbox multiple="true">
+<mat-chip-listbox #chipList multiple>
   <mat-chip-option
     *ngFor="let option of filterOptions"
     (selectionChange)="onChipSelectionChange($event)"

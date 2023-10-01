@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+@import '../../../../styles.scss';
+
 mat-chip-listbox {
   margin-left: 8px;
 }
@@ -12,4 +15,9 @@ mat-chip-listbox {
 .beer-card {
   // necessary to show outline of cards when using guttersize
   margin: 0 8px;
+}
+
+mat-paginator {
+  background-color: mat.get-color-from-palette($primary);
+  margin-top: 16px;
 }

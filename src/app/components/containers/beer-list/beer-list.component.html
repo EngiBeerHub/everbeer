@@ -6,10 +6,12 @@
     >{{ option }}</mat-chip-option
   >
 </mat-chip-listbox>
+
 <!-- spinner -->
 <div class="spinner-container" *ngIf="isLoading; else list">
   <mat-spinner></mat-spinner>
 </div>
+
 <!-- all beer list -->
 <ng-template #list>
   <mat-grid-list
@@ -26,3 +28,13 @@
     </mat-grid-tile>
   </mat-grid-list>
 </ng-template>
+
+<!-- Paginator -->
+<mat-paginator
+  #paginator
+  [color]="paginatorColor"
+  [length]="paginatorLength"
+  [pageSizeOptions]="paginatorSizeOptions"
+  [showFirstLastButtons]="true"
+  (page)="onPaginatorChanged($event)"
+></mat-paginator>

@@ -20,8 +20,9 @@ export class BeerListComponent implements OnInit {
   @ViewChild('chipList') chipList!: MatChipListbox;
 
   /** Beer list */
-  allBeers?: Beer[]; // All beers
-  displayedBeers?: Beer[]; // Displayed beers filtered
+  allBeers?: Beer[]; // All beers from API
+  filteredBeers?: Beer[]; // Beers filtered by chip
+  displayedBeers?: Beer[]; // Beers displayed filtered and paged
   isLoading?: boolean; // show spinner when true
 
   /** Paginator */
@@ -30,7 +31,6 @@ export class BeerListComponent implements OnInit {
   paginatorLength = 0;
   paginatorSizeOptions = [30, 60];
   currentPageSize = this.paginatorSizeOptions[0];
-  currentPageIndex = 0;
 
   /** Map of filter options and functions */
   private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
@@ -75,13 +75,9 @@ export class BeerListComponent implements OnInit {
     // Fetch all beers from API
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
-        this.paginatorLength = fetchedBeers.length;
         this.allBeers = fetchedBeers;
-        // this.displayedBeers = [...fetchedBeers];
-        this.displayedBeers = this.allBeers.slice(
-          0,
-          this.paginatorSizeOptions[0],
-        );
+        this.filteredBeers = [...this.allBeers];
+        this.resetPagination();
         this.isLoading = false;
       },
       // TODO: error:
@@ -134,6 +130,7 @@ export class BeerListComponent implements OnInit {
 
     // Filter beers by selected chips
     this.filterBeers(selectedChips);
+    this.resetPagination();
   }
 
   /**
@@ -142,28 +139,40 @@ export class BeerListComponent implements OnInit {
    */
   private filterBeers(selectedChips: MatChipOption[]) {
     // Always start from all beers
-    this.displayedBeers = [...this.allBeers!];
+    this.filteredBeers = [...this.allBeers!];
 
     // Filter for all selected chips
     selectedChips.forEach((chip) => {
       const filterFunc = this.FILTER_MAP[chip.value];
       if (filterFunc) {
-        this.displayedBeers = this.allBeers?.filter(filterFunc);
+        this.filteredBeers = this.allBeers?.filter(filterFunc);
       }
     });
   }
 
-  // TODO: handle change page
+  /**
+   * Handle changing page
+   * @param event PageEvent
+   */
   onPaginatorChanged(event: PageEvent) {
+    // Logging
     console.log(`event.length: ${event.length}`);
     console.log(`event.pageIndex: ${event.pageIndex}`);
     console.log(`event.pageSize: ${event.pageSize}`);
     console.log(`event.previousPageIndex: ${event.previousPageIndex}`);
+
+    // Handle change
     this.currentPageSize = event.pageSize;
-    const start = event.pageSize * event.pageIndex;
-    this.displayedBeers = this.allBeers?.slice(
+    const start = this.currentPageSize * event.pageIndex;
+    this.displayedBeers = this.filteredBeers?.slice(
       start,
       start + this.currentPageSize,
     );
+  }
+
+  private resetPagination() {
+    this.paginatorLength = this.filteredBeers!.length;
+    this.paginator.firstPage();
+    this.displayedBeers = this.filteredBeers?.slice(0, this.currentPageSize);
   }
 }

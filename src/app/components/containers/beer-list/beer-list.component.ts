@@ -5,6 +5,8 @@ import {
   MatChipOption,
   MatChipSelectionChange,
 } from '@angular/material/chips';
+import { ThemePalette } from '@angular/material/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -14,12 +16,21 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  /** Chip */
   @ViewChild('chipList') chipList!: MatChipListbox;
+
+  /** Beer list */
   allBeers?: Beer[]; // All beers
   displayedBeers?: Beer[]; // Displayed beers filtered
   isLoading?: boolean; // show spinner when true
 
-  // Filter options and functions
+  /** Paginator */
+  @ViewChild('paginator') paginator!: MatPaginator;
+  paginatorColor: ThemePalette = 'primary';
+  paginatorLength = 0;
+  paginatorSizeOptions = [30, 60];
+
+  /** Map of filter options and functions */
   private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
     'High Alcohol': (beer) => beer.abv > 8,
     Bitter: (beer) => beer.ibu > 50,
@@ -40,7 +51,7 @@ export class BeerListComponent implements OnInit {
   // Filter Options value on chip
   filterOptions = Object.keys(this.FILTER_MAP);
 
-  // vars for grid list
+  /** vars for grid list */
   initialGridCols = 3;
   gridCols = this.initialGridCols;
 
@@ -62,8 +73,13 @@ export class BeerListComponent implements OnInit {
     // Fetch all beers from API
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
+        this.paginatorLength = fetchedBeers.length;
         this.allBeers = fetchedBeers;
-        this.displayedBeers = [...fetchedBeers];
+        // this.displayedBeers = [...fetchedBeers];
+        this.displayedBeers = this.allBeers.slice(
+          0,
+          this.paginatorSizeOptions[0],
+        );
         this.isLoading = false;
       },
       // TODO: error:
@@ -133,5 +149,13 @@ export class BeerListComponent implements OnInit {
         this.displayedBeers = this.allBeers?.filter(filterFunc);
       }
     });
+  }
+
+  // TODO: handle change page
+  onPaginatorChanged(event: PageEvent) {
+    console.log(`event.length: ${event.length}`);
+    console.log(`event.pageIndex: ${event.pageIndex}`);
+    console.log(`event.pageSize: ${event.pageSize}`);
+    console.log(`event.previousPageIndex: ${event.previousPageIndex}`);
   }
 }

@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, retry, tap, timeout } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  catchError,
+  concatMap,
+  expand,
+  map,
+  of,
+  retry,
+  tap,
+  timeout,
+  toArray,
+} from 'rxjs';
 import { Beer } from '../models/beer';
 import { throwError } from 'rxjs';
 
@@ -8,10 +20,8 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class BeerService {
+  // base url
   private readonly beersUrl = 'https://api.punkapi.com/v2/beers';
-  private readonly randomBeerUrl = `${this.beersUrl}/random`;
-  // TODO: pagenation
-  private readonly allBeersUrl = `${this.beersUrl}?per_page=80`;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -20,7 +30,8 @@ export class BeerService {
    * @returns a random beer
    */
   getRandomBeer(): Observable<Beer> {
-    return this.httpClient.get<Beer[]>(this.randomBeerUrl).pipe(
+    const randomBeerUrl = `${this.beersUrl}/random`;
+    return this.httpClient.get<Beer[]>(randomBeerUrl).pipe(
       timeout(5000),
       retry(2),
       // need to convert array to single object.
@@ -37,15 +48,32 @@ export class BeerService {
 
   /**
    * GET all beers via API
+   * get multiple times until the end.
    * @returns all beers
    */
   getAllBeers(): Observable<Beer[]> {
-    return this.httpClient.get<Beer[]>(this.allBeersUrl).pipe(
-      timeout(5000),
-      retry(2),
-      tap((beers) => console.log(`all ${beers.length} beers fetched`)),
-      catchError(this.handleError),
+    let page = 1;
+    return this.getPage(page).pipe(
+      expand((pageData) =>
+        pageData.length > 0 ? this.getPage(++page) : EMPTY,
+      ),
+      tap((pageData) =>
+        console.log(`got page data. page: ${page}, length: ${pageData.length}`),
+      ),
+      concatMap((pageData) => of(...pageData)),
+      toArray(), // all pageData flattened to an array
     );
+  }
+
+  /**
+   * GET a paginated data via API
+   * @param page page index starts from 1
+   * @param perPage beers per page
+   * @returns beer list
+   */
+  private getPage(page: number, perPage = 30): Observable<Beer[]> {
+    const url = `${this.beersUrl}?page=${page}&per_page=${perPage}`;
+    return this.httpClient.get<Beer[]>(url);
   }
 
   /**

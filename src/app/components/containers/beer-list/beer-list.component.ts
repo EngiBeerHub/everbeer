@@ -5,6 +5,8 @@ import {
   MatChipOption,
   MatChipSelectionChange,
 } from '@angular/material/chips';
+import { ThemePalette } from '@angular/material/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -14,12 +16,23 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  /** Chip */
   @ViewChild('chipList') chipList!: MatChipListbox;
-  allBeers?: Beer[]; // All beers
-  displayedBeers?: Beer[]; // Displayed beers filtered
+
+  /** Beer list */
+  allBeers?: Beer[]; // All beers from API
+  filteredBeers?: Beer[]; // Beers filtered by chip
+  displayedBeers?: Beer[]; // Beers displayed filtered and paged
   isLoading?: boolean; // show spinner when true
 
-  // Filter options and functions
+  /** Paginator */
+  @ViewChild('paginator') paginator!: MatPaginator;
+  paginatorColor: ThemePalette = 'primary';
+  paginatorLength = 0;
+  paginatorSizeOptions = [30, 60];
+  currentPageSize = this.paginatorSizeOptions[0];
+
+  /** Map of filter options and functions */
   private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
     'High Alcohol': (beer) => beer.abv > 8,
     Bitter: (beer) => beer.ibu > 50,
@@ -40,7 +53,7 @@ export class BeerListComponent implements OnInit {
   // Filter Options value on chip
   filterOptions = Object.keys(this.FILTER_MAP);
 
-  // vars for grid list
+  /** vars for grid list */
   initialGridCols = 3;
   gridCols = this.initialGridCols;
 
@@ -63,7 +76,8 @@ export class BeerListComponent implements OnInit {
     this.beerService.getAllBeers().subscribe({
       next: (fetchedBeers) => {
         this.allBeers = fetchedBeers;
-        this.displayedBeers = [...fetchedBeers];
+        this.filteredBeers = [...this.allBeers];
+        this.resetPagination();
         this.isLoading = false;
       },
       // TODO: error:
@@ -116,6 +130,9 @@ export class BeerListComponent implements OnInit {
 
     // Filter beers by selected chips
     this.filterBeers(selectedChips);
+
+    // Reset pagination with filtered beers
+    this.resetPagination();
   }
 
   /**
@@ -124,14 +141,43 @@ export class BeerListComponent implements OnInit {
    */
   private filterBeers(selectedChips: MatChipOption[]) {
     // Always start from all beers
-    this.displayedBeers = [...this.allBeers!];
+    this.filteredBeers = [...this.allBeers!];
 
     // Filter for all selected chips
     selectedChips.forEach((chip) => {
       const filterFunc = this.FILTER_MAP[chip.value];
       if (filterFunc) {
-        this.displayedBeers = this.allBeers?.filter(filterFunc);
+        this.filteredBeers = this.filteredBeers?.filter(filterFunc);
       }
     });
+  }
+
+  /**
+   * Handle changing page
+   * @param event PageEvent
+   */
+  onPaginatorChanged(event: PageEvent) {
+    // Logging
+    console.log(`event.length: ${event.length}`);
+    console.log(`event.pageIndex: ${event.pageIndex}`);
+    console.log(`event.pageSize: ${event.pageSize}`);
+    console.log(`event.previousPageIndex: ${event.previousPageIndex}`);
+
+    // Handle change
+    this.currentPageSize = event.pageSize;
+    const start = this.currentPageSize * event.pageIndex;
+    this.displayedBeers = this.filteredBeers?.slice(
+      start,
+      start + this.currentPageSize,
+    );
+  }
+
+  /**
+   * Reset pagination with filtered beers
+   */
+  private resetPagination() {
+    this.paginatorLength = this.filteredBeers!.length;
+    this.paginator.firstPage();
+    this.displayedBeers = this.filteredBeers?.slice(0, this.currentPageSize);
   }
 }

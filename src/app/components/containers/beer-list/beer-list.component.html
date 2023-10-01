@@ -23,7 +23,11 @@
       <app-beer-card
         class="beer-card"
         [beer]="beer"
-        [imageUrl]="beer.image_url!"
+        [imageUrl]="
+          beer.image_url
+            ? beer.image_url
+            : 'https://images.punkapi.com/v2/keg.png'
+        "
       ></app-beer-card>
     </mat-grid-tile>
   </mat-grid-list>

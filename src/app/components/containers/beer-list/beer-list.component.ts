@@ -29,6 +29,8 @@ export class BeerListComponent implements OnInit {
   paginatorColor: ThemePalette = 'primary';
   paginatorLength = 0;
   paginatorSizeOptions = [30, 60];
+  currentPageSize = this.paginatorSizeOptions[0];
+  currentPageIndex = 0;
 
   /** Map of filter options and functions */
   private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
@@ -157,5 +159,11 @@ export class BeerListComponent implements OnInit {
     console.log(`event.pageIndex: ${event.pageIndex}`);
     console.log(`event.pageSize: ${event.pageSize}`);
     console.log(`event.previousPageIndex: ${event.previousPageIndex}`);
+    this.currentPageSize = event.pageSize;
+    const start = event.pageSize * event.pageIndex;
+    this.displayedBeers = this.allBeers?.slice(
+      start,
+      start + this.currentPageSize,
+    );
   }
 }

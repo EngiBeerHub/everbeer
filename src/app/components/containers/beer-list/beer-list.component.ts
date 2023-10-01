@@ -130,6 +130,8 @@ export class BeerListComponent implements OnInit {
 
     // Filter beers by selected chips
     this.filterBeers(selectedChips);
+
+    // Reset pagination with filtered beers
     this.resetPagination();
   }
 
@@ -145,7 +147,7 @@ export class BeerListComponent implements OnInit {
     selectedChips.forEach((chip) => {
       const filterFunc = this.FILTER_MAP[chip.value];
       if (filterFunc) {
-        this.filteredBeers = this.allBeers?.filter(filterFunc);
+        this.filteredBeers = this.filteredBeers?.filter(filterFunc);
       }
     });
   }
@@ -170,6 +172,9 @@ export class BeerListComponent implements OnInit {
     );
   }
 
+  /**
+   * Reset pagination with filtered beers
+   */
   private resetPagination() {
     this.paginatorLength = this.filteredBeers!.length;
     this.paginator.firstPage();

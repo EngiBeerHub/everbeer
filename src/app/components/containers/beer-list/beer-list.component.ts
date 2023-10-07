@@ -16,6 +16,9 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  /** Search bar */
+  inputValue?: string;
+
   /** Chip */
   @ViewChild('chipList') chipList!: MatChipListbox;
 
@@ -179,5 +182,25 @@ export class BeerListComponent implements OnInit {
     this.paginatorLength = this.filteredBeers!.length;
     this.paginator.firstPage();
     this.displayedBeers = this.filteredBeers?.slice(0, this.currentPageSize);
+  }
+
+  /**
+   * Handle input for search bar
+   */
+  onInputSearchBar() {
+    // Always start from all beers
+    this.filteredBeers = [...this.allBeers!];
+    if (this.inputValue) {
+      this.filteredBeers = this.filteredBeers.filter(
+        (beer) =>
+          beer.name.toUpperCase().includes(this.inputValue!.toUpperCase()) ||
+          beer.tagline.toUpperCase().includes(this.inputValue!.toUpperCase()) ||
+          beer.description
+            .toUpperCase()
+            .includes(this.inputValue!.toUpperCase()),
+      );
+    }
+    this.displayedBeers = this.filteredBeers;
+    this.resetPagination();
   }
 }

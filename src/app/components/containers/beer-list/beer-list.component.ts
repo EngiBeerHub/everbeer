@@ -123,6 +123,9 @@ export class BeerListComponent implements OnInit {
     console.log(event.source.id);
     console.log(event.source.value);
 
+    // reset input value
+    this.inputValue = '';
+
     // integrate type of selected chips
     let selectedChips: MatChipOption[] = [];
     if (Array.isArray(this.chipList.selected)) {
@@ -188,6 +191,11 @@ export class BeerListComponent implements OnInit {
    * Handle input for search bar
    */
   onInputSearchBar() {
+    // reset chips
+    (this.chipList.selected as MatChipOption[]).forEach(
+      (chip) => (chip.selected = false),
+    );
+
     // Always start from all beers
     this.filteredBeers = [...this.allBeers!];
 

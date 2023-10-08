@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
 import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
@@ -30,6 +33,7 @@ import { BeerListComponent } from './components/containers/beer-list/beer-list.c
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     MatCardModule,
@@ -40,6 +44,8 @@ import { BeerListComponent } from './components/containers/beer-list/beer-list.c
     MatProgressBarModule,
     MatChipsModule,
     MatPaginatorModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

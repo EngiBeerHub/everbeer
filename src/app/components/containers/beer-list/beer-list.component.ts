@@ -16,6 +16,9 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  /** Search bar */
+  inputValue?: string;
+
   /** Chip */
   @ViewChild('chipList') chipList!: MatChipListbox;
 
@@ -120,6 +123,9 @@ export class BeerListComponent implements OnInit {
     console.log(event.source.id);
     console.log(event.source.value);
 
+    // reset input value
+    this.inputValue = '';
+
     // integrate type of selected chips
     let selectedChips: MatChipOption[] = [];
     if (Array.isArray(this.chipList.selected)) {
@@ -179,5 +185,34 @@ export class BeerListComponent implements OnInit {
     this.paginatorLength = this.filteredBeers!.length;
     this.paginator.firstPage();
     this.displayedBeers = this.filteredBeers?.slice(0, this.currentPageSize);
+  }
+
+  /**
+   * Handle input for search bar
+   */
+  onInputSearchBar() {
+    // reset chips
+    (this.chipList.selected as MatChipOption[]).forEach(
+      (chip) => (chip.selected = false),
+    );
+
+    // Always start from all beers
+    this.filteredBeers = [...this.allBeers!];
+
+    // filter beers from input
+    if (this.inputValue) {
+      this.filteredBeers = this.filteredBeers.filter(
+        (beer) =>
+          beer.name.toUpperCase().includes(this.inputValue!.toUpperCase()) ||
+          beer.tagline.toUpperCase().includes(this.inputValue!.toUpperCase()) ||
+          beer.description
+            .toUpperCase()
+            .includes(this.inputValue!.toUpperCase()),
+      );
+    }
+    this.displayedBeers = this.filteredBeers;
+
+    // coordinate pagination accordingly
+    this.resetPagination();
   }
 }

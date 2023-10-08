@@ -190,6 +190,8 @@ export class BeerListComponent implements OnInit {
   onInputSearchBar() {
     // Always start from all beers
     this.filteredBeers = [...this.allBeers!];
+
+    // filter beers from input
     if (this.inputValue) {
       this.filteredBeers = this.filteredBeers.filter(
         (beer) =>
@@ -201,6 +203,8 @@ export class BeerListComponent implements OnInit {
       );
     }
     this.displayedBeers = this.filteredBeers;
+
+    // coordinate pagination accordingly
     this.resetPagination();
   }
 }

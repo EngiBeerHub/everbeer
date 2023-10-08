@@ -2,8 +2,8 @@
 @import '../../../../styles.scss';
 
 mat-form-field {
-  margin-left: 8px;
-  width: 480px;
+  margin: 0 8px;
+  width: calc(100% - 16px);
 }
 
 mat-chip-listbox {

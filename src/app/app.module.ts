@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
 import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
+import { BeerDetailComponent } from './components/pages/beer-detail/beer-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BeerListComponent } from './components/containers/beer-list/beer-list.c
     BeerCardComponent,
     RandomBeerComponent,
     BeerListComponent,
+    BeerDetailComponent,
   ],
   imports: [
     BrowserModule,

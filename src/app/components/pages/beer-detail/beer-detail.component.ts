@@ -9,11 +9,13 @@ import { Beer } from 'src/app/models/beer';
 export class BeerDetailComponent implements OnInit {
   beer!: Beer;
   altImageUrl = 'https://images.punkapi.com/v2/keg.png';
+  foodPairings!: string;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.beer = (history.state as BeerState).beer;
+    this.foodPairings = this.beer.food_pairing.join(', ');
   }
 }
 

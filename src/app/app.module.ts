@@ -21,6 +21,7 @@ import { BeerCardComponent } from './components/presentationals/beer-card/beer-c
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
 import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
 import { BeerDetailComponent } from './components/pages/beer-detail/beer-detail.component';
+import { HomeComponent } from './components/pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BeerDetailComponent } from './components/pages/beer-detail/beer-detail.
     RandomBeerComponent,
     BeerListComponent,
     BeerDetailComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

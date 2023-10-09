@@ -7,7 +7,8 @@ import { Beer } from 'src/app/models/beer';
   styleUrls: ['./beer-detail.component.scss'],
 })
 export class BeerDetailComponent implements OnInit {
-  beer?: Beer;
+  beer!: Beer;
+  altImageUrl = 'https://images.punkapi.com/v2/keg.png';
 
   constructor(private router: Router) {}
 

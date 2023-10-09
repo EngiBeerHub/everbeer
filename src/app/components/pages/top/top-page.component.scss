@@ -19,4 +19,9 @@ main {
   // make only main content scrollable
   // height: calc(100% - 64px);
   // overflow-y: scroll;
+
+  .main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }

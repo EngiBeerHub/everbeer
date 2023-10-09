@@ -1,1 +1,7 @@
-<p>{{ beer?.name }}</p>
+<app-beer-card
+  [beer]="beer"
+  [imageUrl]="beer.image_url ? beer.image_url : altImageUrl"
+></app-beer-card>
+
+<h1>First Brewed</h1>
+<span>{{ beer.first_brewed }}</span>

@@ -17,9 +17,10 @@ mat-chip-listbox {
   align-items: center;
 }
 
-.beer-card {
+app-beer-card {
   // necessary to show outline of cards when using guttersize
   margin: 0 8px;
+  height: 456px;
 }
 
 mat-paginator {

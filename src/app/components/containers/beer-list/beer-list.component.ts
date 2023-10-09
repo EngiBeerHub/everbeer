@@ -27,6 +27,7 @@ export class BeerListComponent implements OnInit {
   filteredBeers?: Beer[]; // Beers filtered by chip
   displayedBeers?: Beer[]; // Beers displayed filtered and paged
   isLoading?: boolean; // show spinner when true
+  altImageUrl = 'https://images.punkapi.com/v2/keg.png';
 
   /** Paginator */
   @ViewChild('paginator') paginator!: MatPaginator;

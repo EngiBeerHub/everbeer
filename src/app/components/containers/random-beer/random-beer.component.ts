@@ -42,7 +42,11 @@ export class RandomBeerComponent implements OnInit {
     });
   }
 
-  onClickCard() {
-    this.router.navigate(['/detail']);
+  /**
+   * Handle clicking card
+   * @param beer shown beer
+   */
+  onClickCard(beer: Beer) {
+    this.router.navigate(['/detail'], { state: { beer: beer } });
   }
 }

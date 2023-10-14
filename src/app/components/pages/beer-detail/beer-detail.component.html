@@ -1,0 +1,74 @@
+<div class="container">
+  <app-beer-card
+    class="beer-card"
+    [beer]="beer"
+    [imageUrl]="beer.image_url ? beer.image_url : altImageUrl"
+  ></app-beer-card>
+
+  <mat-list>
+    <mat-list-item>
+      <span matListItemTitle>First Brewed</span>
+      <span>{{ beer.first_brewed }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <span matListItemTitle>Ph</span>
+      <span>{{ beer.ph }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <span matListItemTitle>Contributed By</span>
+      <span>{{ beer.contributed_by }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item [lines]="matListItemLine">
+      <span matListItemTitle>Brewers Tips</span>
+      <span>{{ beer.brewers_tips }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <mat-list-item [lines]="matListItemLine">
+      <span matListItemTitle>Food Pairing</span>
+      <span>{{ foodPairings }}</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <div mat-subheader>
+      Ingredients
+
+      <div mat-subheader>
+        Malt
+        <div *ngFor="let malt of beer.ingredients.malt">
+          <mat-list-item>
+            <span matListItemTitle>{{ malt.name }}</span>
+            <span>{{ malt.amount.value }}{{ malt.amount.unit }}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <div mat-subheader>
+        Hops
+        <div *ngFor="let hop of beer.ingredients.hops">
+          <mat-list-item>
+            <span matListItemTitle>{{ hop.name }}</span>
+            <span
+              >{{ hop.amount.value }}{{ hop.amount.unit }}, {{ hop.attribute }},
+              added at {{ hop.add }}</span
+            >
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+
+      <mat-list-item>
+        <span matListItemTitle>Yeast</span>
+        <span>{{ beer.ingredients.yeast }}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+</div>

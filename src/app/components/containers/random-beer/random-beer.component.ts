@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -14,7 +15,10 @@ export class RandomBeerComponent implements OnInit {
   imageUrl?: string;
   readonly altImageUrl = 'https://images.punkapi.com/v2/keg.png';
 
-  constructor(private beerService: BeerService) {}
+  constructor(
+    private beerService: BeerService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     // start loading to show spinner
@@ -36,5 +40,13 @@ export class RandomBeerComponent implements OnInit {
       },
       complete: () => console.log('getRandomBeer completed.'),
     });
+  }
+
+  /**
+   * Handle clicking card
+   * @param beer shown beer
+   */
+  onClickCard(beer: Beer) {
+    this.router.navigate(['/detail'], { state: { beer: beer } });
   }
 }

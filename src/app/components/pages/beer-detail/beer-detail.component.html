@@ -24,14 +24,13 @@
     </mat-list-item>
     <mat-divider></mat-divider>
 
-    <!-- TODO: change lines according to responsive breakpoints -->
-    <mat-list-item lines="3">
+    <mat-list-item [lines]="matListItemLine">
       <span matListItemTitle>Brewers Tips</span>
       <span>{{ beer.brewers_tips }}</span>
     </mat-list-item>
     <mat-divider></mat-divider>
 
-    <mat-list-item lines="3">
+    <mat-list-item [lines]="matListItemLine">
       <span matListItemTitle>Food Pairing</span>
       <span>{{ foodPairings }}</span>
     </mat-list-item>

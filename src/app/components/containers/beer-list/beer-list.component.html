@@ -43,6 +43,7 @@
       <app-beer-card
         [beer]="beer"
         [imageUrl]="beer.image_url ? beer.image_url : altImageUrl"
+        (click)="onClickCard(beer!)"
       ></app-beer-card>
     </mat-grid-tile>
   </mat-grid-list>

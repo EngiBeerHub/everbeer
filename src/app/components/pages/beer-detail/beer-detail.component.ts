@@ -10,6 +10,7 @@ export class BeerDetailComponent implements OnInit {
   beer!: Beer;
   altImageUrl = 'https://images.punkapi.com/v2/keg.png';
   foodPairings!: string;
+  matListItemLine = 3; // pc default lines
 
   constructor(private router: Router) {}
 

@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 import { BeerCardComponent } from './components/presentationals/beer-card/beer-card.component';
 import { RandomBeerComponent } from './components/containers/random-beer/random-beer.component';
 import { BeerListComponent } from './components/containers/beer-list/beer-list.component';
@@ -54,6 +55,7 @@ import { HomeComponent } from './components/pages/home/home.component';
     MatButtonModule,
     MatDividerModule,
     MatListModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

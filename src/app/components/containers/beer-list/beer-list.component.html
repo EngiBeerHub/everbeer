@@ -34,7 +34,7 @@
 
 <!-- all beer list -->
 <ng-template #list>
-  <mat-grid-list
+  <!-- <mat-grid-list
     [cols]="gridCols"
     [gutterSize]="gridGutterSize"
     [rowHeight]="gridRowHeight"
@@ -46,7 +46,62 @@
         (click)="onClickCard(beer!)"
       ></app-beer-card>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
+
+  <table mat-table [dataSource]="displayedBeers!" class="mat-elevation-z1">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tag_line">
+      <th mat-header-cell *matHeaderCellDef>Tag Line</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.tagline }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="first_brewed">
+      <th mat-header-cell *matHeaderCellDef>First Brewed</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.first_brewed }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="abv">
+      <th mat-header-cell *matHeaderCellDef>ABV</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.abv }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ibu">
+      <th mat-header-cell *matHeaderCellDef>IBU</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.ibu }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ebc">
+      <th mat-header-cell *matHeaderCellDef>EBC</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.ebc }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="srm">
+      <th mat-header-cell *matHeaderCellDef>SRM</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.srm }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ph">
+      <th mat-header-cell *matHeaderCellDef>PH</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.ph }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="contributed_by">
+      <th mat-header-cell *matHeaderCellDef>Contributed By</th>
+      <td mat-cell *matCellDef="let beer">{{ beer.contributed_by }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </ng-template>
 
 <!-- Paginator -->

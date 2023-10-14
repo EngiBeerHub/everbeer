@@ -17,6 +17,19 @@ import { BeerService } from 'src/app/services/beer.service';
   styleUrls: ['./beer-list.component.scss'],
 })
 export class BeerListComponent implements OnInit {
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'tag_line',
+    'first_brewed',
+    'abv',
+    'ibu',
+    'ebc',
+    'srm',
+    'ph',
+    'contributed_by',
+  ];
+
   /** Search bar */
   inputValue?: string;
 

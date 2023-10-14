@@ -7,6 +7,7 @@ import {
 } from '@angular/material/chips';
 import { ThemePalette } from '@angular/material/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { Beer } from 'src/app/models/beer';
 import { BeerService } from 'src/app/services/beer.service';
 
@@ -27,6 +28,7 @@ export class BeerListComponent implements OnInit {
   filteredBeers?: Beer[]; // Beers filtered by chip
   displayedBeers?: Beer[]; // Beers displayed filtered and paged
   isLoading?: boolean; // show spinner when true
+  altImageUrl = 'https://images.punkapi.com/v2/keg.png';
 
   /** Paginator */
   @ViewChild('paginator') paginator!: MatPaginator;
@@ -69,6 +71,7 @@ export class BeerListComponent implements OnInit {
   constructor(
     private beerService: BeerService,
     private breakpointObserver: BreakpointObserver,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -214,5 +217,13 @@ export class BeerListComponent implements OnInit {
 
     // coordinate pagination accordingly
     this.resetPagination();
+  }
+
+  /**
+   * Handle clicking card
+   * @param beer shown beer
+   */
+  onClickCard(beer: Beer) {
+    this.router.navigate(['/detail'], { state: { beer: beer } });
   }
 }

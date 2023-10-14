@@ -11,6 +11,7 @@ mat-toolbar {
 
   .title-toolbar {
     margin-left: 8px;
+    cursor: pointer;
   }
 }
 
@@ -23,16 +24,5 @@ main {
   .main-content {
     max-width: 1400px;
     margin: 0 auto;
-
-    h1 {
-      font-size: 32px;
-      margin-top: 24px;
-      margin-left: 8px;
-      color: mat.get-color-from-palette($primary);
-    }
-  }
-
-  app-random-beer {
-    margin: 0 8px;
   }
 }

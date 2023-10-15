@@ -33,3 +33,7 @@ mat-paginator {
   background-color: mat.get-color-from-palette($primary);
   margin-top: 16px;
 }
+
+.paginator-sp {
+  padding-bottom: 32px;
+}

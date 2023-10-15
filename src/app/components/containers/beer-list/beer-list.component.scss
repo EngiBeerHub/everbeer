@@ -32,4 +32,6 @@ app-beer-card {
 mat-paginator {
   background-color: mat.get-color-from-palette($primary);
   margin-top: 16px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }

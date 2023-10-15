@@ -16,7 +16,6 @@ mat-toolbar {
 }
 
 main {
-  margin-top: 88px; // under fixed toolbar
   // make only main content scrollable
   // height: calc(100% - 64px);
   // overflow-y: scroll;
@@ -25,4 +24,12 @@ main {
     max-width: 1400px;
     margin: 0 auto;
   }
+}
+
+.main-pc {
+  margin-top: 88px; // under fixed toolbar
+}
+
+.main-sp {
+  margin-top: 80px; // under fixed toolbar
 }

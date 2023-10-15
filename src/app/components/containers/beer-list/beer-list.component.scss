@@ -4,10 +4,19 @@
 mat-form-field {
   margin: 0 8px;
   width: calc(100% - 16px);
+
+  .search-button {
+    margin-right: 8px;
+  }
+
+  .clear-button {
+    margin-right: 8px;
+  }
 }
 
 mat-chip-listbox {
   margin-left: 8px;
+  margin-top: -14px; // absorb extra margin of form field
 }
 
 .spinner-container {

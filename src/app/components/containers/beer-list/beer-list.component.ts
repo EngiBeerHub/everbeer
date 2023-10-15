@@ -36,6 +36,7 @@ export class BeerListComponent implements OnInit {
   paginatorLength = 0;
   paginatorSizeOptions = [30, 60];
   currentPageSize = this.paginatorSizeOptions[0];
+  isSp = false;
 
   /** Map of filter options and functions */
   private readonly FILTER_MAP: Record<string, (beer: Beer) => boolean> = {
@@ -100,6 +101,7 @@ export class BeerListComponent implements OnInit {
         Breakpoints.HandsetLandscape,
       ])
       .subscribe((result) => {
+        this.isSp = false;
         const breakpoints = result.breakpoints;
         // TODO: configure more detail
         if (breakpoints[Breakpoints.WebLandscape]) {
@@ -112,6 +114,7 @@ export class BeerListComponent implements OnInit {
           this.gridCols = 1;
         } else if (breakpoints[Breakpoints.HandsetPortrait]) {
           this.gridCols = 1;
+          this.isSp = true;
         }
       });
   }

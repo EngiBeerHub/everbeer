@@ -2,19 +2,23 @@
 <mat-form-field>
   <mat-label>name, type, color</mat-label>
   <mat-icon matPrefix>search</mat-icon>
-  <input
-    matInput
-    type="text"
-    [(ngModel)]="inputValue"
-    (input)="onInputSearchBar()"
-  />
+  <input matInput type="text" [(ngModel)]="inputValue" />
   <button
-    *ngIf="inputValue"
+    class="search-button mat-elevation-z0"
+    mat-raised-button
     matSuffix
-    mat-icon-button
-    (click)="inputValue = ''; onInputSearchBar()"
+    color="primary"
+    (click)="onClickSearch()"
   >
-    <mat-icon>close</mat-icon>
+    Search
+  </button>
+  <button
+    class="clear-button mat-elevation-z0"
+    mat-raised-button
+    matSuffix
+    (click)="onClickClear()"
+  >
+    Clear
   </button>
 </mat-form-field>
 

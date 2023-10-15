@@ -191,9 +191,9 @@ export class BeerListComponent implements OnInit {
   }
 
   /**
-   * Handle input for search bar
+   * Handle click for search button
    */
-  onInputSearchBar() {
+  onClickSearch() {
     // reset chips
     (this.chipList.selected as MatChipOption[]).forEach(
       (chip) => (chip.selected = false),
@@ -213,6 +213,26 @@ export class BeerListComponent implements OnInit {
             .includes(this.inputValue!.toUpperCase()),
       );
     }
+    this.displayedBeers = this.filteredBeers;
+
+    // coordinate pagination accordingly
+    this.resetPagination();
+  }
+
+  /**
+   * Handle click for clear button
+   */
+  onClickClear() {
+    // reset value
+    this.inputValue = '';
+
+    // reset chips
+    (this.chipList.selected as MatChipOption[]).forEach(
+      (chip) => (chip.selected = false),
+    );
+
+    // reset Beers
+    this.filteredBeers = [...this.allBeers!];
     this.displayedBeers = this.filteredBeers;
 
     // coordinate pagination accordingly

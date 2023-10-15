@@ -1,9 +1,25 @@
 <div class="main-content">
-  <h1>Today's Beer</h1>
+  <h1>
+    Today's Beer
+    <mat-icon
+      fontIcon="info"
+      matTooltip="Showing a random beer from all beers. You can click the card to move to the detail page."
+      #tooltipForRandom="matTooltip"
+      (click)="tooltipForRandom.toggle()"
+    ></mat-icon>
+  </h1>
 
   <app-random-beer></app-random-beer>
 
-  <h1>All Beers</h1>
+  <h1>
+    All Beers
+    <mat-icon
+      fontIcon="info"
+      matTooltip="Showing all beers from BrewDog. Filtering by chips or words available."
+      #tooltipForAll="matTooltip"
+      (click)="tooltipForAll.toggle()"
+    ></mat-icon>
+  </h1>
 
   <app-beer-list></app-beer-list>
 </div>

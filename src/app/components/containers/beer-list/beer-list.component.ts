@@ -220,26 +220,6 @@ export class BeerListComponent implements OnInit {
   }
 
   /**
-   * Handle click for clear button
-   */
-  onClickClear() {
-    // reset value
-    this.inputValue = '';
-
-    // reset chips
-    (this.chipList.selected as MatChipOption[]).forEach(
-      (chip) => (chip.selected = false),
-    );
-
-    // reset Beers
-    this.filteredBeers = [...this.allBeers!];
-    this.displayedBeers = this.filteredBeers;
-
-    // coordinate pagination accordingly
-    this.resetPagination();
-  }
-
-  /**
    * Handle clicking card
    * @param beer shown beer
    */

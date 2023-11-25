@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">everbeer</string>
+    <string name="title_activity_main">everbeer</string>
+    <string name="package_name">com.everbeer.app</string>
+    <string name="custom_url_scheme">com.everbeer.app</string>
+</resources>
